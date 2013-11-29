@@ -2,8 +2,8 @@
 <div><span class="hint"></span>
 </div>
 </h1>
-<div><div class="api-reference-page"><h2 id="angularjs-api-docs">Dokumentasi AngularJS API</h2>
-<p>Selamat datang di laman dokumentasi AngularJS API. Laman ini berisi materi rujukan AngularJS untuk versi <strong ng-bind="version"></strong>.</p>
+<div><div class="api-reference-page"><h2 id="angularjs-api-docs">Dokumentasi API AngularJS</h2>
+<p>Selamat datang di laman dokumentasi API AngularJS. Laman ini berisi materi rujukan AngularJS untuk versi <strong ng-bind="version"></strong>.</p>
 <p>Dokumentasi terbagi dalam <strong>modul-modul</strong> yang berisi berbagai komponen dari aplikasi AngularJS. Yang termasuk komponennya adalah direktif, layanan, saringan, penyedia, tipe, API global dan samaran pengujian.</p>
 <div class="alert alert-info">
 <strong>GugusanNama Angular <code>$</code> dan <code>$$</code></strong>
@@ -12,7 +12,7 @@ Untuk mencegah benturan nama yang tak diinginkan saat pengkodean, Angular member
 
 <h3 id="angularjs-api-docs_angular-namespace">GugusanNama Angular</h3>
 <h3 id="angularjs-api-docs"><a href="api/ng">ng (modul inti)</a></h3>
-<p>Modul ini disediakan secara praseleksi dan mengandung komponen inti dari AngularJS.</p>
+<p>Modul ini disediakan secara praseleksi (<em>default</em>) dan mengandung komponen inti dari AngularJS.</p>
 <table class="definition-table spaced">
   <tr>
     <td><a href="api/ng#directive">Direktif</a></td>
@@ -54,7 +54,7 @@ Untuk mencegah benturan nama yang tak diinginkan saat pengkodean, Angular member
     </td>
     <td>
       <p>
-        Saringan inti tersedia di <em>ng module</em> yang digunakan untuk mengubah data templat sebelum ditampilkan dalam ekspresi dan direktif.
+        Saringan inti tersedia di modul ng <em>(ng module)</em> yang digunakan untuk mengubah data templat sebelum ditampilkan dalam bentuk ekspresi dan direktif.
       </p>
       <p>
             Beberapa contoh termasuk:
@@ -73,7 +73,7 @@ Untuk mencegah benturan nama yang tak diinginkan saat pengkodean, Angular member
     </td>
     <td>
       <p>
-        Fungsi inti API global terikat pada objek angular. funcgsi inti ini berguna untuk operasi Javaskrip taraf rendah dalam aplikasi.
+        Fungsi inti API global terikat pada objek angular. fungsi inti ini berguna untuk operasi Javaskrip taraf rendah (<em>low-level Javascript</em>) dalam aplikasi.
       </p>
       <p>
         Beberapa contoh termasuk:
@@ -103,7 +103,7 @@ Sertakan fail <em><strong>angular-route.js</strong></em> dan set <em><strong>ngR
         <li><a href="api/ngRoute.$routeParams"><em>$routeParams</em></a> 
         digunakan untuk mengambil isi untaian-pertanyaan (<em>querystring</em>) dalam URL.</li>
         <li><a href="api/ngRoute.$route"><em>$route</em></a> digunakan untuk mengambil rincian rute yang sedang diakses.</li>
-        <li><a href="api/ngRoute.$routeProvider"><em>$routeProvider</em></a> digunakan untuk pencatatan rute dalam aplikasi.</li>
+        <li><a href="api/ngRoute.$routeProvider"><em>$routeProvider</em></a> digunakan untuk mencatatkan rute dalam aplikasi.</li>
       </ul>
     </td>
   </tr>
@@ -119,8 +119,8 @@ Sertakan fail <em><strong>angular-route.js</strong></em> dan set <em><strong>ngR
 
 
 <h3 id="angularjs-api-docs"><a href="api/ngAnimate">ngAnimate</a></h3>
-<p>Gunakan ngAnimate untuk menyalakan fitur animasi ke dalam aplikasi. Berbagai ngDirective inti akan menyediakan kait animasi ke dalam aplikasi jika ngAnimate disertakan. Kemudian animasi dirumuskan dengan menggunakan animasi/transisi CSS atau panggilbalik (<em>callback</em>) Javaskrip.</p>
-<div class="alert alert-info">Sertakan fail <em><strong>angular-route.js</strong></em> dan set <em><strong>ngRoute</strong></em> sebagai sebuah dependensi untuk membuatnya bekerja dalam aplikasi.</div>
+<p>Gunakan <em>ngAnimate</em> untuk menyalakan fitur animasi ke dalam aplikasi. Berbagai <em>ngDirective</em> inti akan menyediakan kait animasi ke dalam aplikasi jika <em>ngAnimate</em> disertakan. Kemudian animasi dirumuskan dengan menggunakan animasi/transisi CSS atau panggilbalik (<em>callback</em>) Javaskrip.</p>
+<div class="alert alert-info">Sertakan fail <em><strong>angular-animate.js</strong></em> dan set <em><strong>ngAnimate</strong></em> sebagai sebuah dependensi untuk membuatnya bekerja dalam aplikasi.</div>
 
 <table class="definition-table spaced">
   <tr>
@@ -128,46 +128,45 @@ Sertakan fail <em><strong>angular-route.js</strong></em> dan set <em><strong>ngR
       <a href="api/ngAnimate#service">Layanan / Pabrikasi</a>
     </td>
     <td>
-      Use <a href="api/ngAnimate.$animate">$animate</a> to trigger animation operations within your directive code.
+        Gunakan <a href="api/ngAnimate.$animate">$animate</a> untuk memicu operasi animasi di dalam pengkodean direktif.      
     </td>
   </tr>
   <tr>
     <td>
-      <a href="api/ngAnimate">CSS-based animations</a>
+      <a href="api/ngAnimate">Animasi berbasis-CSS</a>
     </td>
     <td>
-      Follow ngAnimate’s CSS naming structure to reference CSS transitions / keyframe animations in AngularJS. Once defined the animation can be triggered by referencing the CSS class within the HTML template code.
+        Ikuti struktur penamaan CSS <em>ngAnimate</em> ketika merujuk pada animasi transisi/lis-utama (<em>keyframe</em>) di AngularJS. Sekali dirumuskan animasi dapat dipicu dengan merujuk kelas CSS di dalam pengkodean templat HTML.
     </td>
   </tr>
   <tr>
     <td>
-      <a href="api/ngAnimate">JS-based animations</a>
+      <a href="api/ngAnimate">Animasi berbasis-JS</a>
     </td>
     <td>
-      Use <a href="api/angular.Module#methods_animation"><code>module.animation()</code></a> to register a JavaScript animation. Once registered the animation can be triggered by referencing the CSS class within the HTML template code.
+        Gunakan <a href="api/angular.Module#methods_animation"><code>module.animation()</code></a> untuk mendaftarkan animasi Javaskrip. Sekali dirumuskan animasi dapat dipicu dengan merujuk kelas CSS di dalam pengkodean templat HTML.
     </td>
   </tr>
 </table>
 
 
 <h3 id="angularjs-api-docs"><a href="api/ngResource">ngResource</a></h3>
-<p>Use the ngResource module when querying and posting data to a REST API.</p>
-<div class="alert alert-info">Include the <strong>angular-resource.js</strong> file and set <strong>ngResource</strong> as a dependency for this to work in your application.</div>
+<p>Gunakan modul <em>ngResource</em> ketika menanyakan dan mengepos data ke API REST.</p>
+<div class="alert alert-info">Sertakan fail <em><strong>angular-resource.js</strong></em> dan set <em><strong>ngResource</strong></em> sebagai sebuah dependensi untuk membuatnya bekerja dalam aplikasi.</div>
 
 <table class="definition-table spaced">
   <tr>
     <td>
       <a href="api/ngResource#service">Layanan / Pabrikasi</a>
     </td>
-    <td>
-      The <a href="api/ngResource.$resource">$resource</a> service is used to define RESTful objects which communicate with a REST API.
+    <td>Layanan <a href="api/ngResource.$resource">$resource</a> digunakan untuk merumuskan objek REST saat berkomunikasi dengan API REST.
     </td>
   </tr>
 </table>
 
 <h3 id="angularjs-api-docs"><a href="api/ngCookies">ngCookies</a></h3>
-<p>Use the ngCookies module to handle cookie management within your application.</p>
-<div class="alert alert-info">Include the <strong>angular-cookies.js</strong> file and set <strong>ngCookies</strong> as a dependency for this to work in your application.</div>
+<p>Gunakan modul ngCookies untuk mengurus manajemen kuki dalam aplikasi.</p>
+<div class="alert alert-info">Sertakan fail <em><strong>angular-cookies.js</strong></em> dan set <em><strong>ngCookies</strong></em> sebagai sebuah dependensi untuk membuatnya bekerja dalam aplikasi.</div>
 
 <table class="definition-table spaced">
   <tr>
@@ -175,18 +174,18 @@ Sertakan fail <em><strong>angular-route.js</strong></em> dan set <em><strong>ngR
       <a href="api/ngCookies#service">Layanan / Pabrikasi</a>
     </td>
     <td>
-      The following services are used for cookie management:
+        Layanan berikut digunakan untuk manajemen kuki:
       <ul>
-        <li>The <a href="api/ngCookies.$cookies">$cookie</a> service is a convenient wrapper to store simple data within browser cookies.</li>
-        <li><a href="api/ngCookies.$cookieStore">$cookieStore</a> is used to store more complex data using serialization.</li>
+        <li>Layanan <a href="api/ngCookies.$cookies">$cookie</a> adalah pembungkus yang mudah untuk menyimpan sedikit data dalam kuki peramban.</li>
+        <li><a href="api/ngCookies.$cookieStore">$cookieStore</a> digunakan untuk menyimpan data yang lebih rumit menggunakan serialisasi (<em>serialization</em>).</li>
       </ul>
     </td>
   </tr>
 </table>
 
 <h3 id="angularjs-api-docs"><a href="api/ngTouch">ngTouch</a></h3>
-<p>Use ngTouch when developing for mobile browsers/devices.</p>
-<div class="alert alert-info">Include the <strong>angular-touch.js</strong> file and set <strong>ngTouch</strong> as a dependency for this to work in your application.</div>
+<p>Gunakan <em>ngTouch</em> saat mengembangkan peranti/peramban untuk aplikasi mobil.</p>
+<div class="alert alert-info">Sertakan fail <em><strong>angular-touch.js</strong></em> dan set <em><strong>ngTouch</strong></em> sebagai sebuah dependensi untuk membuatnya bekerja dalam aplikasi.</div>
 
 <table class="definition-table spaced">
   <tr>
@@ -194,7 +193,7 @@ Sertakan fail <em><strong>angular-route.js</strong></em> dan set <em><strong>ngR
       <a href="api/ngTouch#service">Layanan / Pabrikasi</a>
     </td>
     <td>
-      The <a href="api/ngTouch.$swipe">$swipe</a> service is used to register and manage mobile DOM events. 
+        Layanan <a href="api/ngTouch.$swipe">$swipe</a> digunakan untuk pencatatan dan mengatur acara MOD (<em>DOM events</em>) aplikasi mobil. 
     </td>
   </tr>
   <tr>
@@ -202,14 +201,14 @@ Sertakan fail <em><strong>angular-route.js</strong></em> dan set <em><strong>ngR
       <a href="api/ngTouch#directive">Direktif</a>
     </td>
     <td>
-      Various Direktif are available in ngTouch to emulate mobile DOM events.
+        Berbagai direktif sudah tersedia dalam <em>ngTouch</em> untuk meniru acara MOD aplikasi mobil.
     </td>
   </tr>
 </table>
 
 <h3 id="angularjs-api-docs"><a href="api/ngSanitize">ngSanitize</a></h3>
-<p>Use ngSanitize to securely parse and manipulate HTML data in your application.</p>
-<div class="alert alert-info">Include the <strong>angular-sanitize.js</strong> file and set <strong>ngSanitize</strong> as a dependency for this to work in your application.</div>
+<p>Gunakan ngSanitize untuk memilah dan merekayasa data HTML secara aman dalam aplikasi.</p>
+<div class="alert alert-info">Sertakan fail <em><strong>angular-sanitize.js</strong></em> dan set <em><strong>ngSanitize</strong></em> sebagai sebuah dependensi untuk membuatnya bekerja dalam aplikasi.</div>
 
 <table class="definition-table spaced">
   <tr>
@@ -217,7 +216,7 @@ Sertakan fail <em><strong>angular-route.js</strong></em> dan set <em><strong>ngR
       <a href="api/ngSanitize#service">Layanan / Pabrikasi</a>
     </td>
     <td>
-      The <a href="api/ngSanitize.$sanitize">$sanitize</a> service is used to clean up dangerous HTML code in a quick and convenient way.
+        Layanan <a href="api/ngSanitize.$sanitize">$sanitize</a> digunakan untuk membersihkan bahaya kode HTML dengan mudah dan cepat.
     </td>
   </tr>
   <tr>
@@ -225,14 +224,14 @@ Sertakan fail <em><strong>angular-route.js</strong></em> dan set <em><strong>ngR
       <a href="api/ngTouch#filter">Saringan</a>
     </td>
     <td>
-      The <a href="api/ngSanitize.filter:linky">linky filter</a> is used to turn URLs into HTML links within the provided string.
+        <a href="api/ngSanitize.filter:linky">Saringan tautan</a> (<em>linky filter</em>) digunakan untuk mengubah URL menjadi taut HTML dalam untaian (<em>string</em>) yang disediakan.
     </td>
   </tr>
 </table>
 
 <h3 id="angularjs-api-docs"><a href="api/ngMock">ngMock</a></h3>
-<p>Use ngMock to inject and mock modules, factories, services and providers within your unit tests </p>
-<div class="alert alert-info">Include the <strong>angular-mocks.js</strong> file into your test runner for this to work.</div>
+<p>Gunakan <em>ngMock</em> untuk memasukkan dan menyamar sebagai modul, pabrikan, layanan dan penyedia dalam tes unit.</p>
+<div class="alert alert-info">Sertakan fail <em><strong>angular-mocks.js</strong></em> ke dalam pekerja tes (<em>test runner</em>) untuk membuatnya bekerja dalam aplikasi.</div>
 
 <table class="definition-table spaced">
   <tr>
@@ -241,16 +240,16 @@ Sertakan fail <em><strong>angular-route.js</strong></em> dan set <em><strong>ngR
     </td>
     <td>
       <p>
-        ngMock will extend the behavior of various core services to become testing aware and manageable in a synchronous manner.
+        <e>ngMock</em> akan menambah kemampuan berbagai layanan inti sehingga membuat aplikasi sadar-akan-keterujian (<em>testing aware</em>) dan mudah diatur secara sinkron.
       <p>
 
       <p>
-        Some examples include:
+        Beberapa contoh termasuk:
           <a href="api/ngMock.$timeout">$timeout</a>,
           <a href="api/ngMock.$interval">$interval</a>,
           <a href="api/ngMock.$log">$log</a>,
           <a href="api/ngMock.$httpBackend">$httpBackend</a>,
-          etc...
+          dsb...
       <p>
     </td>
   </tr>
@@ -260,16 +259,181 @@ Sertakan fail <em><strong>angular-route.js</strong></em> dan set <em><strong>ngR
     </td>
     <td>
       <p>
-        Various helper functions are available to inject and mock modules within unit test code.
+        Berbagai fungsi pembantu yang tersedia untuk memasukkan dan menyamar sebagai modul dalam pengkodean tes unit.
       </p>
 
       <p>
-        Some examples
+        Beberapa contoh:
           <a href="api/angular.mock.inject"><code>inject()</code></a>,
           <a href="api/angular.mock.module"><code>module()</code></a>,
           <a href="api/angular.mock.dump"><code>dump()</code></a>,
-          etc...
+          dsb...
       <p>
     </td>
   </tr>
-</table></div></div>
+</table>
+
+<h3 id="angularjs-api-docs_angular-namespace">Glosarium</h3>
+<table class="definition-table spaced">
+  <tr>
+    <td>
+      <a href="javascript:void(0)">API</a>
+    </td>
+    <td>
+      <p>
+        Antarmuka Pemrograman Inti (<em>Application Programming Interface</em>)
+      <p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="javascript:void(0)">Serialisasi</a>
+    </td>
+    <td>
+      <p>
+        Serialisasi (<em>Serialization</em>) adalah menyebarkan dalam bentuk serial.
+      <p>
+    </td>
+  </tr>
+   <tr>
+    <td>
+      <a href="javascript:void(0)">Praseleksi</a>
+    </td>
+    <td>
+      <p>
+        Praseleksi (<em>default</em>) adalah pilihan yang sudah disediakan terlebih dahulu.
+      <p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="javascript:void(0)">AngularJS</a>
+    </td>
+    <td>
+      <p>
+        AngularJS (<em>AngularJS</em>).
+      <p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="javascript:void(0)">pushState</a>
+    </td>
+    <td>
+      <p>
+        pushState (<em>cookie</em>) adalah salah satu fungsi API untuk HTML5.
+      <p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="javascript:void(0)">JS</a>
+    </td>
+    <td>
+      <p>
+        lihat Javaskrip.
+      <p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="javascript:void(0)">Templat</a>
+    </td>
+    <td>
+      <p>
+        Templat (<em>template</em>).
+      <p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="javascript:void(0)">Panggilbalik</a>
+    </td>    
+    <td>
+      <p>
+        Panggilbalik (<em>callback</em>).
+      <p>
+    </td>
+  </tr>
+   <tr>
+    <td>
+      <a href="javascript:void(0)">Kuki</a>
+    </td>    
+    <td>
+      <p>
+        Kuki (<em>cookie</em>).
+      <p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="javascript:void(0)">Pabrikasi</a>
+    </td>
+    <td>
+      <p>
+        Pabrikasi (<em>factory</em>).
+      <p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="javascript:void(0)">MOD</a>
+    </td>
+    <td>
+      <p>
+        Model Objek Dokumen (<em>Document Object Model (DOM)</em>).
+      <p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="javascript:void(0)">URL</a>
+    </td>
+    <td>
+      <p>
+        URL (<em>mock</em>).
+      <p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="javascript:void(0)">Samaran</a>
+    </td>
+    <td>
+      <p>
+        Samaran (<em>mock</em>).
+      <p>
+    </td>
+  </tr>
+   <tr>
+    <td>
+      <a href="javascript:void(0)">Javaskrip</a>
+    </td>
+    <td>
+      <p>
+        Javaskrip (<em>Javascript</em>).
+      <p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="javascript:void(0)">Direktif</a>
+    </td>
+    <td>
+      <p>
+        Direktif (<em>directive</em>).
+      <p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="javascript:void(0)">Untaian-pertanyan</a>
+    </td>
+    <td>
+      <p>
+        Untaian-pertanyan (<em>querystring</em>).
+      <p>
+    </td>
+  </tr>
+</table>
+</div></div>
