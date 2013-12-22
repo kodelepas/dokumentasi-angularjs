@@ -1,0 +1,53 @@
+<a href="http://github.com/angular/angular.js/edit/master/docs/content/guide/templates.ngdoc" class="improve-docs btn btn-primary"><i class="icon-edit"></i> Jadikan dokumen ini lebih baik</a><h1><code ng:non-bindable=""></code>
+<div><span class="hint"></span>
+</div>
+</h1>
+<div><div class="templates-page">
+<p>Templat Angular adalah spesifikasi deklaratif, bersama informasi dari model dan kontroler, 
+menjadi pemandangan hasil-proses (<em>rendered view</em>) yang pemakai lihat di peramban. 
+Adalah MOD statik berupa HTML, CSS, unsur khas Angular, dan atribut unsur khas Angular. 
+Unsur Angular dan atributnya mengarahkan angular untuk menambah perilaku dan mengubah templat MOD 
+ke dalam pemandangan dinamis MOD.</p>
+<p>Berikut ini adalah tipe unsur Angular dan atribut unsur yang bisa digunakan di templat:</p>
+<ul>
+<li><a href="guide/directive">Direktif</a> — Atribut atau unsur yang memperbesar unsur MOD yang ada atau 
+yang mewakili komponen MOD pakai-ulang - sebuah gawai.</li>
+<li><a href="api/ng.$interpolate"><code>Markah-atas (<em>markup</em>)</code></a> — 
+notasi kurung kurawal ganda <code>{{ }}</code> yang mengikat ekspresi ke unsur, merupakan markah-atas angular 
+yang inheren (<em>built-in</em>).</li>
+<li><a href="guide/filter">Saringan</a> — format data untuk tampilan pemakai.</li>
+<li><a href="guide/forms">Kendali isian (<em>Form controls</em>)</a> — Membolehkan anda mengesahkan masukan pemakai.</li>
+</ul>
+<p>Catatan: Sebagai tambahan dalam menyatakan unsur di atas pada templat, anda dapat juga mencapai unsur semua ini dalam
+kode Javaskrip.</p>
+<p>Petikan kode berikut menampilkan templat Angular gampang yang tersusun dari tanda HTML baku, bersama dengan 
+<a href="guide/directive">direktif</a> Angular dan ikatan kurung-kurawal dengan ekspresi:</p>
+<pre class="prettyprint linenums">
+&lt;html ng-app&gt;
+ &lt;!-- markah badan-utama diperbesar dengan direktif ngController  --&gt;
+ &lt;body ng-controller="KontrolerKu"&gt;
+   &lt;input ng-model="fu" value="bar"&gt;
+   &lt;!-- markah tombol dengan direktif ng:click, 
+        dan ekspresi untaian 'teksTombol' terbungkus 
+        dalam markah "{{ }}" --&gt;
+   &lt;button ng-click="ubahFu()"&gt;{{ teksTombol }}&lt;/button&gt;
+   &lt;script src="angular.js"&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>Dalam aplikasi laman-tunggal yang gampang, templat terdiri dari HTML, CSS dan direktif Angular, 
+terkandung hanya dalam satu fail HTML (umumnya, <code>index.html</code>). Dalam aplikasi yang lebih sulit, 
+anda dapat menampilkan pemandangan berganda dalam satu laman utama menggunakan &quot;parsial&quot; (<em>&quot;partials&quot;</em>),
+yaitu bagian templat bertempat dalam fail HTML terpisah. Anda &quot;menyertakan&quot; parsial dalam laman utama denga 
+menggunakan layanan <a href="api/ngRoute.$route">$route</a> berpapasan dengan direktif <a href="api/ngRoute.directive:ngView">ngView</a>.
+Contoh metode ini diperlihatkan dalam  <a href="tutorial/index">bimbingan Angular</a> pada langkah tujuh dan delapan.</p>
+<h3 id="related-topics">Topik Terkait</h3>
+<ul>
+<li><a href="guide/filter">Saringan Angular</a></li>
+<li><a href="guide/forms">Isian Angular</a></li>
+</ul>
+<h3 id="related-api">API Terkait</h3>
+<ul>
+<li><a href="api/index">Rujukan API</a></li>
+</ul>
+</div></div>
