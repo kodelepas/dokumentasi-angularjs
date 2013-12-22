@@ -33,7 +33,6 @@ css/animations.css
 css/doc_widgets.css
 css/docs.css
 css/prettify.css
-docs-data.js
 favicon.ico
 img/angular_parts.png
 img/angularjs-for-header-only.svg
@@ -357,7 +356,6 @@ partials/misc/contribute.html
 partials/misc/downloading.html
 partials/misc/faq.html
 partials/misc/started.html
-partials/tutorial/index.html
 partials/tutorial/step_00.html
 partials/tutorial/step_01.html
 partials/tutorial/step_02.html

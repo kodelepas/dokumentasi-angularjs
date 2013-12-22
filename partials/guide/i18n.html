@@ -1,0 +1,86 @@
+<a href="http://github.com/angular/angular.js/edit/master/docs/content/guide/i18n.ngdoc" class="improve-docs btn btn-primary"><i class="icon-edit"> </i> Jadikan dokumen ini lebih baik</a><h1><code ng:non-bindable=""></code>
+<div><span class="hint"></span>
+</div>
+</h1>
+<div><div class="developer-guide-page developer-guide-i18n-and-l10n-page"><h2 id="i18n-and-l10n-in-angularjs">I18n dan L10n (Internasionalisasi dan Lokalisasi) dalam AngularJS</h2>
+<p><strong>Apa itu i18n dan l10n?</strong></p>
+<p>Internasionalisasi, disingkat i18n, adalah proses pengembangan produk sedemikian rupa 
+sehingga dapat terlokalisasi untuk budaya dan bahasa setempat dengan mudah. Lokalisasi, disingkat l10n,
+adalah proses pengadaptasian aplikasi dan teks sehingga memungkinkan kebergunaannya dalam budaya khas atau pasar linguistik.
+Untuk pengembang aplikasi, menginternasionalkan sebuah aplikasi berarti pengabstraksian semua untaian 
+dan bit spesifik-setempat (<em>locale-specific</em>) lainnya (seperti format mata uang dan tanggal) terlepas dari aplikasi. 
+Lokalisasi sebuah aplikasi berarti penyediaan alih-bahasa dan format setempat untuk bit terabstraksi.</p>
+<p><strong>Seberapa tingkat dukungan saat ini untuk i18n/l10n di Angular?</strong></p>
+<p>Saat ini, Angular mendukung i18n/l10n untuk saringan <a href="http://docs.angularjs.org/#!/api/ng.filter:date">waktu-tanggal</a>, <a href="http://docs.angularjs.org/#!/api/ng.filter:number">bilangan</a> and <a href="http://docs.angularjs.org/#!/api/ng.filter:currency">mata uang</a>.</p>
+<p>Tambahan lagi, Angular menyokong dukungan kejamakan terlokalisasi (<em>localizable pluralization support</em>) yang disediakan <a href="api/ng.directive:ngPluralize"><code>direktif ngPluralize</code></a>.</p>
+<p>Semua komponen terlokalisasi bergantung pada perangkat aturan spesifik-setempat yang diatur oleh <a href="api/ng.$locale"><code>layanan $locale</code></a>.</p>
+<p>Buat pembaca yang ingin langsung masuk ke dalam contoh, kami memiliki beberapa laman situs yang menampilkan bagaimana menggunakan saringan Angular
+dengan ragam perangkat aturan setempat. Anda dapat melihat contohnya baik pada <a href="https://github.com/angular/angular.js/tree/master/i18n/e2e">Github</a> atau pelipat (<em>folder</em>) i18n/e2e di paket pengembangan Angular.</p>
+
+
+<p><strong>Apa itu kode setempat (<em>locale id</em>)?</strong></p>
+<p>Lokal adalah satu wilayah geografis, politis, atau budaya yang khas. Kode setempat yang 
+paling sering digunakan terdiri dari dua bagian: kode bahasa dan kode negara. Sebagai contoh, id-ID, en-US, en-UK 
+adalah kode setempat sah berisi baik kode bahasa dan kode negara. Karena penentuan kode negara dalam kode setempat 
+bersifat opsional, kode setempat seperti id, en juga dianggap sah. Lihat situs <a href="http://userguide.icu-project.org/locale">ICU</a>
+untuk informasi lebih lanjut mengenai kode setempat.</p>
+<p><strong>Pendukungan kode setempat dalam Angular</strong>
+Angular memisahkan perangkat aturan bilangan dan waktu-tanggal dalam fail berbeda, tiap fail
+untuk tempat tertentu. Anda dapat melihat daftar pendukungan kode setempat saat ini 
+<a href="https://github.com/angular/angular.js/tree/master/src/ngLocale">disini</a></p>
+<h2 id="providing-locale-rules-to-angular">Penyediaan aturan setempat untuk Angular</h2>
+<p>Ada dua pendekatan untuk penyediaan aturan setempat untuk Angular:</p>
+<p><strong>1. Perangkat aturan pra-bundel</strong></p>
+<p>Anda dapat menggunakan pra-bundel fail setempat yang diinginkan dalam Angular dengan menggabungkan 
+isi fail spesifik-setempat pada akhir isi fail <code>angular.js</code> atau <code>angular.min.js</code>.</p>
+<p>Sebagai contoh pada komputer berplatform *nix, untuk membuat fail angular.js berisi aturan lokalisasi untuk wilayah Indonesia,
+Anda dapat melakukan hal berikut:</p>
+<p><code>cat angular.js i18n/angular-locale_id-id.js &gt; angular_id-id.js</code></p>
+<p>Ketika aplikasi terisi skrip <code>angular_id-id.js</code> berjalan, alih-alih skrip generik angular.js, 
+Angular otomatis telah ter-prakonfigurasi dengan aturan lokalisasi untuk kode setempat Indonesia.</p>
+<p><strong>2. Mengikutsertakan skrip js setempat dalam laman index.html</strong></p>
+<p>Anda juga dapat menyertakan fail js setempat tertentu dalam laman index.html. Contohnya, jika klien 
+membutuhkan kode setempat Indonesia, anda bisa melayani dengan fail index_id-id.html dimana akan terlihat seperti ini:</p>
+<pre class="prettyprint linenums">
+&lt;html ng-app&gt;
+ &lt;head&gt;
+….
+   &lt;script src="angular.js"&gt;&lt;/script&gt;
+   &lt;script src="i18n/angular-locale_id-id.js"&gt;&lt;/script&gt;
+….
+ &lt;/head&gt;
+&lt;/html&gt;
+</pre>
+<p><strong>Perbandingan antar dua pendekatan tersebut</strong>
+Kedua pendekatan yang dijelaskan di atas membutuhkan anda untuk menyiapkan laman index.html berbeda atau 
+fail js untuk tiap kode setempat dimana aplikasi ingin dijadikan aplikasi setempat. Anda perlu juga untuk 
+menyetel server untuk melayani fail yang sesuai dengan wilayah setempat.</p>
+<p>Bagaimanapun, pendekatan kedua (dengan mengikutsertakan skrip js setempat dalam laman index.html) 
+sepertinya lebih lambat karena skrip tambahan yang perlu dimuat.</p>
+<h2 id="&quot;gotchas&quot;">&quot;Kena deh&quot;</h2>
+<p><strong>&quot;kena deh&quot;: Simbol mata uang</strong></p>
+<p>Saringan <em>currency</em> Angular mengijinkan untuk menggunakan simbol mata uang praseleksi dari 
+<a href="api/ng.$locale"><code>layanan lokal</code></a>, atau anda dapat menyediakan saringan 
+simbol mata uang tujuan. Jika aplikasi digunakan hanya dalam satu tempat, tentu baik bergantung 
+pada simbol mata uang praseleksi. Akan tetapi, jika anda mengantisipasi para pemandang 
+di wilayah lain yang akan menggunakan aplikasi anda, anda harus menyediakan simbol mata uang sendiri 
+untuk memastikan nilai sesungguhnya dimengerti.</p>
+<p>Sebagai contoh, jika mau menampilkan saldo rekening 10 000 000 rupiah seperti data terikat berikut 
+yang berisikan saringan <em>currency</em>: <code>{{ 10000000 | currency }}</code>, dan aplikasi anda saat ini dalam 
+lokal id-ID, maka tampilan &#39;Rp 10.000.000,00&#39; akan muncul. Tapi jika seseorang ada di wilayah berbeda 
+(misal, Jepang) melihat aplikasi anda, dan perambannya menentukan kode wilayahnya sebagai &quot;ja&quot;, 
+maka saldo sebesar &#39;¥10,000,000.00&#39; malahan yang tampil. Tentu hal ini bisa membuat klien anda gusar.</p>
+<p>Dalam kasus ini, anda butuh menumpang-tindih simbol mata uang praseleksi dengan penyediaan 
+<a href="http://docs.angularjs.org/#!/api/ng.filter:currency">saringan <em>currency</em></a> dengan simbol mata uang sebagai 
+sebuah parameter saat menyetel saringan, seperti contoh, <code>{{ 10000000 | currency:&quot;IDR Rp&quot;}}</code>.
+Dengan demikian, Angular akan selalu menampilkan saldo sebesar &#39;IDR Rp 10.000.000,00&#39; terlepas perubahan wilayah apapun.</p>
+<p><strong>&quot;Kena deh&quot;: Panjang terjemahan</strong></p>
+<p>Perlu diingat bahwa untaian/waktu-tanggal yang dialihbahasakan dapat berbeda cukup besar panjangnya. Sebagai contoh,
+<code>3 Juni 1977</code> akan diterjemahkan ke dalam bahasa Spanyol menjadi <code>3 de junio de 1977</code>. Jelas. hal ini terikat sebagai
+kasus yang lebih ekstrem. Untuk alasan ini, saat menginternasionalan aplikasi anda, anda perlu menerapkan aturan CSS yang sesuai
+dan melakukan pengujian teliti untuk memastikan komponen AntarMuka tidak tumpang-tindih.</p>
+<p><strong>Zona waktu</strong></p>
+<p>Perlu dicatat saringan waktu-tanggal Angular menggunakan latar zona waktu peramban. Jadi aplikasi 
+yang sama akan menampilkan informasi waktu berbeda-beda tergantung latar zona waktu dari komputer tempat aplikasi berjalan.
+Tidak ada baik Angular ataupun Javaskrip mendukung tampilan tanggal dengan zona waktu yang ditentukan pengembang.</p>
+</div></div>

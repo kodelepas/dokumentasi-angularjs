@@ -144,6 +144,7 @@
 .content h4,
 .content h5 {
   margin-top: 1em;
+  margin-bottom: 8px;
 }
 
 ul.parameters > li > p,

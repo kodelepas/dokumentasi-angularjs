@@ -1,0 +1,301 @@
+<a href="http://github.com/angular/angular.js/edit/master/docs/content/guide/controller.ngdoc" class="improve-docs btn btn-primary"><i class="icon-edit"> </i> Jadikan dokumen ini lebih baik</a><h1><code ng:non-bindable=""></code>
+<div><span class="hint"></span>
+</div>
+</h1>
+<div><div class="controllers-page"><h2 id="understanding-controllers">Memahami Kontroler</h2>
+<p>Dalam Angular, sebuah kontroler adalah <strong>fungsi pembangun</strong> Javaskrip yang digunakan untuk memperluas Lingkup Angular (<a href="guide/scope"><em>Angular Scope</em></a>).</p>
+<p>Saat Kontroler diikat pada MOD lewat direktif <a href="api/ng.directive:ngController"><code>ng-controller</code></a>, Angular akan membuat instansi objek Kontroler baru, menggunakan fungsi-pembangun-kontroler-yang-sudah-ada. <strong>Anak lingkup</strong> (<em>child scope</em>) baru akan tersedia sebagai parameter yang dapat dimasukkan ke <strong>fungsi-pembangun-kontroler</strong> sebagai <code>$scope</code>.
+</p>
+<p>Gunakan kontroler untuk:</p>
+<ul>
+<li>Menyiapkan keadaan awal dari objek <code>$scope</code>.</li>
+<li>Menambahkan perilaku ke objek <code>$scope</code></li>
+</ul>
+<h2 id="setting-up-the-initial-state-of-a-object">Penyetelan keadaan awal dari objek <code>$scope</code></h2>
+<p>Biasanya, saat membuat aplikasi kita perlu menyiapkan keadaan awal untuk <code>$scope</code> Angular. 
+Kita menyiapkan keadaan awal lingkup dengan mengikat atribut ke objeck <code>$scope</code>. 
+Atribut berupa <strong>model pemandangan</strong> (<em>view model</em>, model yang ditampilkan oleh pemandangan). 
+Semua atribut <code>$scope</code> akan tersedia untuk templat pada titik di MOD dimana kontroler terdaftar</p>
+<p>Contoh berikut menunjukkan fungsi-pembangun yang sangat mudah untuk kontroler, <code>ktrlSalam</code>, 
+yang mengikat atribut <code>salam</code> berisi untaian <code>&#39;Hai!&#39;</code> ke <code>$scope</code>:
+</p>
+<pre class="prettyprint linenums">
+    function ktrlSalam( $scope ) {
+        $scope.salam = 'Hai!';
+    }
+</pre>
+<p>Sekali kontroler terikat ke MOD, atribut <code>salam</code> dapat menjadi data-terikat pada templat:</p>
+<pre class="prettyprint linenums">
+    &lt;div ng-controller="ktrlSalam"&gt;
+      {{ salam }}
+    &lt;/div&gt;
+</pre>
+<p><strong>CATATAN</strong>: Meski Angular membolehkan untuk membuat fungsi kontroler dalam lingkup global, 
+hal ini tidak dianjurkan. Dalam aplikasi benaran seharusnya menggunakan metode <code>.controller</code> 
+dari <a href="guide/module">Modul Angular</a> untuk aplikasi, seperti berikut:<p>
+<pre class="prettyprint linenums">
+    var apl = angular.module('apl',[]);
+
+    apl.controller('ktrlSalam', ['$scope', function($scope) {
+        $scope.salam = 'Hai!';
+    }]);
+</pre>
+<p>Kami menggunakan <strong>anotasi injeksi sejajar</strong> (<em>inline injection annotation</em>)
+untuk memerinci secara gamblang dependensi dari kontroler pada layanan <code>$scope</code> yang disediakan Angular.
+Lihat panduan pada <a href="http://docs.angularjs.org/guide/di">Injeksi Dependensi</a> untuk info lebih lanjut.</p>
+<h2 id="adding-behavior-to-a-scope-object">Penambahan perilaku pada Objek Lingkup</h2>
+<p>Dalam bereaksi terhadap acara atau menjalankan perhitungan dalam pemandangan kita harus menyiapkan perilaku lingkup.
+Kita menambah perilaku ke lingkup dengan mengikatkan metode pada objek <code>$scope</code>. 
+Metode ini selanjutnya tersedia untuk dipanggil dari templat/pemandangan</p>
+<p>Contoh berikut menggunakan kontroler untuk menambah metode ke lingkup, yang akan menggandakan angka:</p>
+<pre class="prettyprint linenums">
+    var apl = angular.module('apl',[]);
+
+    apl.controller('ktrlDobel', ['$scope', function($scope) {
+        $scope.dobel = function(angka) { return angka * 2; };
+    }]);
+</pre>
+<p>Sekali kontroler terikat ke MOD, metode <code>dobel</code> dapat dimunculkan dalam ekspresi Angular di templat:</p>
+<pre class="prettyprint linenums">
+    &lt;div ng-controller="ktrlDobel"&gt;
+      Dua kali &lt;input ng-model="angka"&gt; sama dengan {{ dobel(angka) }}
+    &lt;/div&gt;
+</pre>
+<p>Seperti didiskusikan dalam bagian <a href="guide/concepts">Konsep</a> panduan ini, 
+limpahan tiap objek (atau primitif) untuk lingkup menjadi atribut model. 
+Tiap limpahan metode (<em>method assigned</em>) untuk lingkup akan tersedia dalam templat/pemandangan, 
+dan dapat dimunculkan lewat ekspresi angular dan direktif penanggung acara <code>ng</code> 
+(e.g. <a href="api/ng.directive:ngClick"><code>ngClick</code></a>).
+</p>
+<h2 id="using-controllers-correctly">Penggunaan Kontroler Secara Benar</h2>
+<p>Umumnya, kontroler seharusnya tidak melakukan terlalu banyak hal. 
+Ini seharusnya berisi hanya logika usaha yang diperlukan untuk pemandangan tunggal</p>
+<p>Cara sebagaimana mestinya untuk menjaga kontroler tetap ramping adalah dengan 
+pengapsulasian (<em>encapsulating</em>) kerja yang bukan punya kontroler kedalam layanan 
+dan selanjutnya menggunakan layanan ini dalam kontroler lewat injeksi dependensi. 
+Hal ini didiskusikan dalam bagian <a href="guide/dev_guide.services">Layanan</a> <a href="guide/di">Injeksi Dependensi</a> dari panduan
+</p>
+<p>Jangan gunakan kontroler untuk:</p>
+<ul>
+<li>Segala bentuk manipulasi MOD — kontroler seharusnya hanya berisi logika usaha. 
+Manipulasi MOD (logika penyajian aplikasi) dikenal luas sulit untuk diuji. 
+Peletakan logika penyajian apapun ke dalam kontroler mempengaruhi testabilitas dari logika usaha secara signifikan.
+Jika harus menyelesaikan manipulasi MOD manual sendiri, enkaspsulasikan logika penyajian dalam <a href="guide/directive">direktif</a>.
+</li>
+<li>Tata masukan — Sebaiknya gunakan <a href="guide/forms">pengendali formulir angular</a>.</li>
+<li>Penyaringan keluaran — Sebaiknya gunakan <a href="guide/filter">penyaring angular</a></li>
+<li>Pembagian kode nirkondisi atau dalam kondisi melalui kontroler — Sebaiknya gunakan <a href="guide/dev_guide.services">layanan angular</a>.</li>
+<li>Mengatur daur hidup dari komponen lainnya (sebagai contoh, membuat instansi layanan).</li>
+</ul>
+<h2 id="associating-controllers-with-angular-scope-objects">Pengasosiasian kontroler dengan Objek Lingkup Angular</h2>
+<p>Anda dapat mengasosiasikan kontroler dengan objek lingkup secara tersirat lewat <a href="api/ng.directive:ngController"><code>direktif ngController</code></a> atau <a href="api/ngRoute.$route">layanan $route</a>.</p>
+<h3 id="associating-controllers-with-angular-scope-objects_simple-spicy-controller-example">Contoh Kontroler Bumbu Simpel</h3>
+<p>Untuk menggambarkan lebih lanjut bagaimana komponen Kontroler bekerja dalam Angular, mari kita lihat aplikasi kecil berikut dengan komponen:</p>
+<ul>
+<li><a href="guide/templates">Templat</a> dengan dua tombol dan pesan simpel</li>
+<li>Model berisi untaian nama <code>bumbu</code></li>
+<li>Kontroler dengan dua fungsi mengisi isian <code>bumbu</code></li>
+</ul>
+<p>Dalam pesan templat ini terdapat ikatan pada model <code>bumbu</code>, dengan praseleksi berisi untaian &quot;menarik&quot;. 
+Bergantung dengan tombol mana yang ditekan, model <code>bumbu</code> akan terisi <code>cabai</code> atau <code>paprika</code>, dan pesan otomatis diperbarui oleh data-terikat.
+</p>
+<h3 id="associating-controllers-with-angular-scope-objects_source">Sumber</h3>
+<div source-edit="aplBumbu1" source-edit-deps="angular.js script.js" source-edit-html="index.html-203" source-edit-css="" source-edit-js="script.js-202" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div class="tabbable"><div class="tab-pane" title="index.html">
+<pre class="prettyprint linenums" ng-set-text="index.html-203" ng-html-wrap="aplBumbu1 angular.js script.js"></pre>
+<script type="text/ng-template" id="index.html-203">
+    <div ng-app="aplBumbu1" ng-controller="KtrlBumbu">
+     <button ng-click="bumbuCabai()">Cabai</button>
+     <button ng-click="bumbuPaprika()">Paprika</button>
+     <p>Makanan ini mengandung bumbu dengan cita rasa {{ bumbu }}</p>
+    </div>    
+  </script>
+</div>
+<div class="tab-pane" title="script.js">
+<pre class="prettyprint linenums" ng-set-text="script.js-202"></pre>
+<script type="text/ng-template" id="script.js-202">
+      var myApp = angular.module('aplBumbu1', []);
+
+      myApp.controller('KtrlBumbu', ['$scope', function($scope){
+          $scope.bumbu = 'menarik';
+          
+          $scope.bumbuCabai = function() {
+              $scope.bumbu = 'cabai';
+          };
+          
+          $scope.bumbuPaprika = function() {
+              $scope.bumbu = 'paprika';
+          };
+      }]);
+    </script>
+</div>
+</div><h3 id="associating-controllers-with-angular-scope-objects_demo">Unjuk Kerja</h3>
+<div class="well doc-example-live animate-container" ng-embed-app="aplBumbu1" ng-set-html="index.html-203" ng-eval-javascript="script.js-202"></div>
+<p>Mengamati hal pada contoh di atas:</p>
+<ul>
+<li>Direktif <code>ng-controller</code> digunakan untuk (secara tersirat) membuat lingkup templat, dan lingkup ditambah (diatur) oleh kontroler <code>KtrlBumbu</code>.</li>
+<li><code>KtrlBumbu</code> hanya fungsi javaskrip biasa. Sebagai (opsional) konvensi penamaan mulai dengan &quot;Ktrl&quot; atau &quot;Kontroler&quot; dan akhiri dengan huruf kapital.</li>
+<li>Tugas properti pada <code>$scope</code> membuat atau memperbarui model.</li>
+<li>Metode Kontroler dapat dibuat melalui penugasan langsung pada lingkup (lihat metode <code>bumbuCabai</code>)</li>
+<li>Metode Kontroler dan propertinya tersedia dalam templat (bagi elemen <code>&lt;div&gt;</code> dan turunannya).</li>
+</ul>
+<h3 id="associating-controllers-with-angular-scope-objects_spicy-arguments-example">Contoh Argumen Bumbu</h3>
+<p>Metode Kontroler juga dapat menerima argumen, seperti ditunjukan dalam variasi berikut dari contoh sebelumnya.</p>
+<h3 id="associating-controllers-with-angular-scope-objects_source">Sumber</h3>
+<div source-edit="aplBumbu2" source-edit-deps="angular.js script.js" source-edit-html="index.html-205" source-edit-css="" source-edit-js="script.js-204" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div class="tabbable"><div class="tab-pane" title="index.html">
+<pre class="prettyprint linenums" ng-set-text="index.html-205" ng-html-wrap="aplBumbu2 angular.js script.js"></pre>
+<script type="text/ng-template" id="index.html-205">
+  <div ng-app="aplBumbu2" ng-controller="KtrlBumbu">
+   <input ng-model="bumbuSukaan">
+   <button ng-click="citarasa('cabai')">Cabai</button>
+   <button ng-click="citarasa(bumbuSukaan)">Bumbu sukaan</button>
+   <p>Makanan ini mengandung bumbu dengan cita rasa {{ bumbu }}!</p>
+  </div>
+  
+</script>
+</div>
+<div class="tab-pane" title="script.js">
+<pre class="prettyprint linenums" ng-set-text="script.js-204"></pre>
+<script type="text/ng-template" id="script.js-204">
+    var myApp = angular.module('aplBumbu2', []);
+
+    myApp.controller('KtrlBumbu', ['$scope', function($scope){
+        $scope.bumbuSukaan = "pedas";
+        $scope.bumbu = 'menarik';
+        
+        $scope.citarasa = function(bumbu){
+            $scope.bumbu = bumbu;
+        };
+    }]);
+  </script>
+</div>
+</div><h3 id="associating-controllers-with-angular-scope-objects_demo">Unjuk Kerja</h3>
+<div class="well doc-example-live animate-container" ng-embed-app="aplBumbu2" ng-set-html="index.html-205" ng-eval-javascript="script.js-204"></div>
+<p>Terasakan jika Kontroler <code>KtrlBumbu</code> sekarang mendefinisikan hanya satu metode yaitu <code>citarasa</code>, dimana menerima satu argumen yaitu <code>bumbu</code>. Kemudian templat merujuk pada metode Kontroler ini dan memberikan dalam konstanta untaian yaitu <code>&#39;cabai&#39;</code> dalam data-terikat pada tombol pertama dan model properti <code>bumbuSukaan</code> (terikat pada kotak masukan) dalam tombol kedua.</p>
+<h3 id="associating-controllers-with-angular-scope-objects_scope-inheritance-example">Contoh Warisan Lingkup</h3>
+<p>Sudah biasa mengikatkan Kontroler pada tingkatan berbeda dari hierarki MOD. Mulai dari direktif <a href="api/ng.directive:ngController"><code>ng-controller</code></a> membuat lingkup turunan baru, kita mendapat hierarki lingkup yang mewarisi dari satu sama lain. Lingkup dimana tiap Kontroler terima akan mendapat akses ke metode dan properti yang didefinisikan oleh hierarki Kontroler yang lebih tinggi. Lihat <a href="https://github.com/angular/angular.js/wiki/Understanding-Scopes">Pemahaman Lingkup</a> untuk information lebih lanjut mengenai warisan lingkup.</p>
+<h3 id="associating-controllers-with-angular-scope-objects_source">Sumber</h3>
+<div source-edit="warisanLingkup" source-edit-deps="angular.js script.js" source-edit-html="index.html-208" source-edit-css="style.css-207" source-edit-js="script.js-206" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div class="tabbable"><div class="tab-pane" title="index.html">
+<pre class="prettyprint linenums" ng-set-text="index.html-208" ng-html-wrap="warisanLingkup angular.js script.js"></pre>
+<script type="text/ng-template" id="index.html-208">
+    <div ng-app="warisanLingkup" class="citarasa">
+      <div ng-controller="KtrlUtama">
+        <p>Selamat {{ waktu }}, {{ nama }}!</p>
+
+        <div ng-controller="KtrlAnak">
+          <p>Selamat {{ waktu }}, {{ nama }}!</p>
+
+          <div ng-controller="KtrlCucu">
+            <p>Selamat {{ waktu }}, {{ nama }}!</p>
+          </div>
+        </div>
+      </div>
+    </div>    
+  </script>
+</div>
+<div class="tab-pane" title="style.css">
+<pre class="prettyprint linenums" ng-set-text="style.css-207"></pre>
+<style type="text/css" id="style.css-207">
+      div.citarasa div {
+        padding: 10px;
+        border: solid 2px blue;
+      }
+    </style>
+</div>
+<div class="tab-pane" title="script.js">
+<pre class="prettyprint linenums" ng-set-text="script.js-206"></pre>
+<script type="text/ng-template" id="script.js-206">
+      var myApp = angular.module('warisanLingkup', []);
+      myApp.controller('KtrlUtama', ['$scope', function($scope){
+        $scope.waktu = 'pagi';
+        $scope.nama = 'Jahe';
+      }]);
+      myApp.controller('KtrlAnak', ['$scope', function($scope){
+        $scope.nama = 'AnakJahe';
+      }]);
+      myApp.controller('KtrlCucu', ['$scope', function($scope){
+        $scope.waktu = 'sore';
+        $scope.nama = 'Bayi AnakJahe';
+      }]);
+    </script>
+</div>
+</div><h3 id="associating-controllers-with-angular-scope-objects_demo">Unjuk Kerja</h3>
+<div class="well doc-example-live animate-container" ng-embed-app="warisanLingkup" ng-set-html="index.html-208" ng-eval-javascript="script.js-206"></div>
+<p>Sudah lihat bagaimana kita telah mengurutkan tiga direktif <code>ng-controller</code> pada templat. 
+Hal ini menghasilkan empat lingkup terbuat pada pemandangan:</p>
+<ul>
+<li>Lingkup pangkal (<em>root scope</em>)</li>
+<li>Lingkup <code>KtrlUtama</code>, dimana berisi properti <code>waktu</code> dan <code>nama</code></li>
+<li>Lingkup <code>KtrlAnak</code>, dimana mewarisi properti <code>waktu</code> namun menumpang-tindih (menyembunyikan) properti <code>nama</code> dari sebelumnya</li>
+<li>Lingkup <code>KtrlCucu</code>, dimana menumpang-tindih (menyembunyikan) baik properti <code>waktu</code> yang telah dinyatakan dalam <code>KtrlUtama</code> dan properti <code>nama</code> yang sudah dinyatakan  dalam <code>KtrlAnak</code></li>
+</ul>
+<p>Warisan bekerja dengan metode yang sama seperti halnya lakukan dengan properti. Jadi dalam contoh sebelumnya, 
+semua properti bisa digantikan dengan metode yang mengembalikan nilai.</p>
+<h3 id="associating-controllers-with-angular-scope-objects_testing-controllers">Pengujian Kontroler</h3>
+<p>Meski ada banyak cara untuk menguji kontroler, satu kesepakatan terbaik, seperti terlihat dibawah, 
+melibatkan penyuntikan <a href="api/ng.$rootScope"><code>$rootScope</code></a> dan <a href="api/ng.$controller"><code>$controller</code></a>:</p>
+<p><strong>Definisi Kontroler</strong>
+<pre class="prettyprint linenums">
+    var myApp = angular.module('aplKu',[]);
+
+    myApp.controller('KontrolerKu', function($scope) {
+      $scope.rempah = [{"nama":"cabai merah", "kepedasan":"ringan"},
+                       {"nama":"cabai rawit", "kepedasan":"pedas pedas pedas!"},
+                       {"nama":"cabai hiyung", "kepedasan":"SUPER PEDAS!!"}];
+                       
+      $scope.bumbu = "cabai hiyung";
+    });
+</pre>
+<p><strong>Uji Kontroler:</strong>
+<pre class="prettyprint linenums">
+describe('fungsi KontrolerKu', function() {
+
+  describe('KontrolerKu', function() {
+    var $scope;
+
+    beforeEach(module('aplKu'));
+
+    beforeEach(inject(function($rootScope, $controller) {
+      $scope = $rootScope.$new();
+      $controller('KontrolerKu', {$scope: $scope});
+    }));
+
+    it('harus membuat model "rempah" dengan tiga bumbu', function() {
+      expect($scope.rempah.length).toBe(3);
+    });
+
+    it('harus ada nilai praseleksi bumbu', function() {
+      expect($scope.bumbu).toBe('cabai hiyung');
+    });
+  });
+});
+</pre>
+<p>Jika perlu menguji Kontroler berurut anda perlu membuat hierarki lingkup yang sama dalam ujian yang tersedia di MOD:</p>
+<pre class="prettyprint linenums">
+describe('keadaan', function() {
+    var lingkupUtama, lingkupAnak, lingkupCucu;
+
+    beforeEach(module('aplKu'));
+
+    beforeEach(inject(function($rootScope, $controller) {
+        lingkupUtama = $rootScope.$new();
+        $controller('KtrlUtama', {$scope: lingkupUtama});
+        lingkupAnak = lingkupUtama.$new();
+        $controller('KtrlAnak', {$scope: lingkupAnak});
+        lingkupCucu = lingkupAnak.$new();
+        $controller('KtrlCucu', {$scope: lingkupCucu});
+    }));
+
+    it('harus sudah terdefinisi dan terpilih', function() {
+        expect(lingkupUtama.waktu).toBe('pagi');
+        expect(lingkupUtama.nama).toBe('Jahe');
+        expect(lingkupAnak.waktu).toBe('pagi');
+        expect(lingkupAnak.nama).toBe('AnakJahe');
+        expect(lingkupCucu.waktu).toBe('sore');
+        expect(lingkupCucu.nama).toBe('Bayi AnakJahe');
+    });
+});
+</pre>
+</div></div>

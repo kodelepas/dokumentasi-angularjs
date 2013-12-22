@@ -1,3 +1,8 @@
+var alihbahasa = {
+    'controller': 'kontroler',
+    'i18n': 'i18n dan l10n'
+};
+
 var docsApp = {
   controller: {},
   directive: {},
@@ -186,6 +191,7 @@ docsApp.directive.sourceEdit = function(getEmbeddedTemplate) {
         unit: read($attrs.sourceEditUnit),
         scenario: read($attrs.sourceEditScenario)
       };
+            
       $scope.fiddle = function(e) {
         e.stopPropagation();
         openJsFiddle(sources);
@@ -199,7 +205,7 @@ docsApp.directive.sourceEdit = function(getEmbeddedTemplate) {
 
   function read(text) {
     var files = [];
-    angular.forEach(text ? text.split(' ') : [], function(refId) {
+    angular.forEach(text ? text.split(' ') : [], function(refId) {        
       // refId is index.html-343, so we need to strip the unique ID when exporting the name
       files.push({name: refId.replace(/-\d+$/, ''), content: getEmbeddedTemplate(refId)});
     });
@@ -246,6 +252,7 @@ docsApp.directive.docModuleComponents = function() {
           }
         }
       });
+      
       $scope.components = components;
       $timeout($anchorScroll, 0, false);
     }]
@@ -604,10 +611,11 @@ docsApp.serviceFactory.sections = ['NG_PAGES', function sections(NG_PAGES) {
     getPage: function(sectionId, partialId) {
       var pages = sections[sectionId];
 
+    
       partialId = partialId || 'index';
 
       for (var i = 0, ii = pages.length; i < ii; i++) {
-        if (pages[i].id == partialId) {
+        if (pages[i].id == partialId) {        
           return pages[i];
         }
       }
@@ -676,13 +684,16 @@ docsApp.controller.DocsController = function($scope, $location, $window, $cookie
     };
   };
 
+  
   $scope.afterPartialLoaded = function() {
     var currentPageId = $location.path();
     $scope.partialTitle = $scope.currentPage.shortName;
+    /*
     $window._gaq.push(['_trackPageview', currentPageId]);
     loadDisqus(currentPageId);
-  };
-
+    */
+  };  
+  
   /** stores a cookie that is used by apache to decide which manifest ot send */
   $scope.enableOffline = function() {
     //The cookie will be good for one year!
@@ -703,12 +714,12 @@ docsApp.controller.DocsController = function($scope, $location, $window, $cookie
    ***********************************/
 
   var SECTION_NAME = {
-    api: 'API Reference',
-    guide: 'Developer Guide',
-    misc: 'Miscellaneous',
-    tutorial: 'Tutorial',
-    cookbook: 'Examples',
-    error: 'Error Reference'
+    api: 'Rujukan API',
+    guide: 'Panduan untuk Pengembang',
+    misc: 'Lain-lain',
+    tutorial: 'Bimbingan',
+    cookbook: 'Contoh',
+    error: 'Rujukan Galat'
   };
 
   populateComponentsList();
@@ -734,6 +745,7 @@ docsApp.controller.DocsController = function($scope, $location, $window, $cookie
       var breadcrumb = $scope.breadcrumb = [],
         match;
 
+      
       if (partialId) {
         breadcrumb.push({ name: sectionName, url: sectionId });
         if (partialId == 'angular.Module') {
@@ -741,7 +753,9 @@ docsApp.controller.DocsController = function($scope, $location, $window, $cookie
         } else if (match = partialId.match(GLOBALS)) {
           breadcrumb.push({ name: partialId });
         } else if (match = partialId.match(MODULE)) {
-          breadcrumb.push({ name: match[1] });
+          console.log( 'MODULE: ', match[1] );
+          breadcrumb.push({ name: alihbahasa[ match[1] ] });
+          
         } else if (match = partialId.match(MODULE_FILTER)) {
           breadcrumb.push({ name: match[1], url: sectionId + '/' + match[1] });
           breadcrumb.push({ name: match[2] });
@@ -763,9 +777,12 @@ docsApp.controller.DocsController = function($scope, $location, $window, $cookie
         } else {
           breadcrumb.push({ name: page.shortName });
         }
+         console.log( 'matched: ', match );
       } else {
         breadcrumb.push({ name: sectionName });
       }
+      
+
     }
   });
 
@@ -815,7 +832,7 @@ docsApp.controller.DocsController = function($scope, $location, $window, $cookie
     angular.forEach(pages, function(page) {
       var match,
         id = page.id;
-
+    
       if (page.id == 'index') {
         //skip
       } else if (page.section != 'api') {
@@ -824,7 +841,7 @@ docsApp.controller.DocsController = function($scope, $location, $window, $cookie
           if (match[1] !== undefined) {
             namespace(match[1].replace(/:/g, '')).errors.push(page);
           } else {
-            globalErrors.push(page);
+            globalErrors.push(page);            
           }
         } else {
           otherPages.push(page);
@@ -925,7 +942,9 @@ angular.module('docsApp', ['ngResource', 'ngRoute', 'ngCookies', 'ngSanitize', '
   factory(docsApp.serviceFactory).
   directive(docsApp.directive).
   controller(docsApp.controller);
-
+  
 angular.forEach(docsApp.filter, function (docsAppFilter, filterName) {
   angular.module('docsApp').filter(filterName, docsAppFilter);
 });
+
+console.log( 'updated!' );
