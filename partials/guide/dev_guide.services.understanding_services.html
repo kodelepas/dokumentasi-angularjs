@@ -1,0 +1,50 @@
+<a href="http://github.com/angular/angular.js/edit/master/docs/content/guide/dev_guide.services.understanding_services.ngdoc" class="improve-docs btn btn-primary"><i class="icon-edit"> </i> Jadikan dokumen ini lebih baik</a><h1><code ng:non-bindable=""></code>
+<div><span class="hint"></span>
+</div>
+</h1>
+<div><div class="developer-guide-page developer-guide-angular-services-understanding-angular-services-page">
+<h3 id="what-are-angular-services">Apa itu Layanan Angular?</h3>
+<p>Layanan Angular adalah objek singgelton atau fungsi yang memberikan tugas umum ke aplikasi jaringan.
+Angular memiliki sejumlah layanan inheren, seperti <a href="api/ng.$http"><code>layanan $http</code></a>,
+yang menyediakan peramban, akses ke objek <code>XMLHttpRequest</code> untuk membuat instruksi pada server.
+Sama seperti pengenal dan peubah inti Angular (<em>angular variables and identifiers</em>), layanan inheren selalu mulai dengan 
+tanda <code>$</code> (seperti <code>$http</code> yang disinggung di atas). Anda juga bisa membuat layanan sukaan anda sendiri.</p>
+<h3 id="using-a-service">Penggunaan Layanan</h3>
+<p>Untuk menggunakan layanan Angular, anda menentukannya sebagai sebuah dependensi untuk komponen (kontroler, layanan, saringan dan direktif)
+yang bergantung pada layanan tersebut. Nantinya subsistem injeksi dependensi Angular yang mengambil-alih selebihnya. Subsistem injektor Angular 
+bertanggungjawab pada layanan instantiasi, resolusi dependensi, dan penyedia dependensi pada komponen seperti diinstruksikan.</p>
+<p>Angular menyuntik dependensi menggunakan 
+<a href="http://misko.hevery.com/2009/02/19/constructor-injection-vs-setter-injection/">&quot;pembangun&quot; injeksi (<em>&quot;constructor&quot; injection</em>)</a>.
+Dependensi diserahkan ke fungsi pembangun/pabrikan (<em>factory/contructor</em>). Karena javaskrip adalah bahasa tikan dinamis (<em>dynamically
+typed language</em>), Subsistem injeksi dependensi Angular tidak dapat menggunakan tipe statik untuk menentukan dependensi layanan.
+Untuk alasan ini komponen harus, secara gamblang, menyatakan ketergantungannya (pada komponen lain) dengan menggunakan 
+satu dari beberapa metode <a href="guide/di">anotasi injeksi</a>. Sebagai contoh, dengan penyediaan properti <code>$inject</code>:
+<pre><code>    var KontrolerKu = function($location) { ... };
+    KontrolerKu.$inject = [&#39;$location&#39;];
+    modulKu.controller(&#39;KontrolerKu&#39;, KontrolerKu);</code></pre>
+<p>Atau dengan penyediaan anotasi injeksi &quot;sebaris&quot;:</p>
+<pre><code>    var layananKu = function($http) { ... };
+    modulKu.factory(&#39;layananKu&#39;, [&#39;$http&#39;, layananKu]);</code></pre>
+<h3 id="defining-a-service">Pendefinisian sebuah Layanan</h3>
+<p>Pengembang aplikasi bebas mendefinisikan layanan mereka sendiri dengan pendaftaran nama mereka, dan 
+<strong>fungsi layanan pabrikan</strong>, pada modul Angular.</p>
+<p>Tujuan dari <strong>fungsi layanan pabrikan</strong> adalah menghasilkan objek tunggal, atau fungsi, yang mewakili layanan 
+sepanjang aplikasi berjalan. Objek tersebut, atau fungsi, kemudian akan disuntik ke dalam komponen apapun 
+(kontroler, layanan, saringan atau direktif) yang menentukan dependensi pada layanan.
+</p>
+<p>Fungsi pabrikan Angular dijalankan secara malas. Artinya, mereka hanya dijalankan saat dibutuhkan saja untuk memenuhi dependensi, 
+dan juga hanya dijalankan tepat sekali untuk tiap layanan. Segala yang bergantung pada layanan tersebut, 
+mendapatkan rujukan pada instansi (proses berjalan - <em>instance</em>) tunggal yang dibuat oleh pabrikan layanan.</p>
+<h3 id="related-topics">Topik Terkait</h3>
+<ul>
+<li><a href="guide/di">Injeksi Dependensi</a></li>
+<li><a href="guide/dev_guide.services.creating_services">Membangun Layanan</a></li>
+<li><a href="guide/dev_guide.services.managing_dependencies">Menata Dependensi Layanan</a></li>
+<li><a href="guide/dev_guide.services.testing_services">Pengujian Layanan Angular</a></li>
+</ul>
+<h3 id="related-api">API Terkait</h3>
+<ul>
+<li><a href="api/ng">Layanan API Angular</a></li>
+<li><a href="api/angular.injector"><code>API Injektor</code></a></li>
+</ul>
+</div></div>
