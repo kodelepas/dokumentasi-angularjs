@@ -1,0 +1,97 @@
+<a href="http://github.com/angular/angular.js/edit/master/docs/content/guide/introduction.ngdoc" class="improve-docs btn btn-primary"><i class="icon-edit"> </i> Jadikan dokumen ini lebih baik</a><h1><code ng:non-bindable=""></code>
+<div><span class="hint"></span>
+</div>
+</h1>
+<div><div class="introduction-page"><h2 id="what-is-angular">Apa itu Angular?</h2>
+<p>AngularJs adalah Desain kerja struktural untuk aplikasi-jaringan dinamis. AngularJs mendorong anda menggunakan 
+HTML sebagai bahasa templat dan memperluas sintaksis HTML untuk mengekspresikan komponen aplikasi anda 
+lebih jelas, ringkas dan elegan. Secara intuitif (<em>out of the box</em>), AngularJs menyingkirkan 
+banyak sandi yang (seharusnya) anda buat, melalui data-terikat dan injeksi dependensi. Dan semua proses itu berlangsung dalam peramban,
+membuatnya sebagai kawan ideal dengan teknologi (sisi-) server apapun.</p>
+<p>Angular ibarat HTML yang sesungguhnya jika HTML didesain sebagai sebuah aplikasi. 
+HTML memang hebat sebagai bahasa deklaratif untuk dokumen statik. Namun, HTML sangat <em>sangat</em> kurang, 
+dalam hal membuat aplikasi, dan akibatnya membangun aplikasi-jaringan seperti menjadi ajang latihan tubi 
+dalam arti <em>Apa yang sebaiknya saya lakukan untuk menyiasati peramban mengerjakan apa yang saya inginkan</em>
+</p>
+<p>Hambatan yang tak-imbang antara aplikasi dinamis dan dokumen statik seringkali diselesaikan dengan:</p>
+<ul>
+<li><strong>Pustaka (<em>library</em>)</strong> - adalah koleksi pustaka berisi fungsi-fungsi dimana berguna untuk menulis aplikasi-jaringan.
+Sandi anda berwenang penuh dan memanggil pustaka bila berasa perlu. msl: <code>jQuery</code></li>
+<li><strong>Desain kerja (<em>frameworks</em>)</strong> - adalah penerapan khusus aplikasi-jaringan dimana sandi anda mengisi penerapan detilnya.
+Desain kerja berwenang penuh dan memanggil sandi anda bila memerlukan sesuatu yang spesifik-aplikasi (<em>app specific</em>). 
+msl: <code>backbone</code>, <code>ember</code>, dll.</li>
+</ul>
+<p>Angular mengambil pendekatan lain. Angular coba mengurangi hambatan tak-imbang antara pusar-dokumen (<em>document centric</em>) HTML
+ dan apa yang aplikasi butuhkan dengan membuat pembangun HTML baru. Angular mengajari peramban sintaksis baru melalui sebuah pembangun (<em>construct</em>) 
+ yang kita sebut <strong>direktif</strong>. Contoh-contoh yang termasuk antara lain:</p>
+<ul>
+<li>Data terikat, seperti dalam <code>{{}}</code>.</li>
+<li>Struktur kendali MOD untuk pengulangan/penyembunyian fragmen MOD.</li>
+<li>Mendukung isian dan pengesahan isian.</li>
+<li>Pengikatan sandi-balik (<em>code-behind</em>) pada elemen MOD.</li>
+<li>Pengelompokan HTML ke dalam komponen pakai-ulang.</li>
+</ul>
+<h3 id="what-is-angular_a-complete-client-side-solution">Sebuah solusi lengkap untuk sisi-klien</h3>
+<p>Angular bukanlah potongan tunggal dalam keseluruhan teka-teki pengembangan aplikasi-jaringan-sisi-klien.
+Angular menanggung semua sandi perekat MOD dan AJAX yang anda tulis dan meletakkannya dalam struktur yang berdefinisi-layak 
+(<em>well-defined</em>). Ini membuat Angular terasa dogmatis mengenai bagaimana seharusnya sebuah aplikasi <em>CRUD</em> dibuat.
+Namun sementara terasa dogmatis, Angular juga berusaha memastikan bahwa pendapat tersebut hanyalah sebagai titik tolak 
+yang mudah anda ubah. Angular memperlengkapinya dengan cara intuitif berikut:</p>
+<ul>
+<li>Segala hal yang anda butuhkan untuk membangun sebuah aplikasi <em>CRUD</em> dalam perangkat yang kohesif: 
+data-terikat, direktif templat dasar, ke-sah-an isian, perutean, pertautan-dalam (<em>deep-linking</em>), 
+komponen pakai-ulang, injeksi dependensi.</li>
+<li>Testabilitas cerita: unit-pengujian, pengujian ujung-ke-ujung (<em>end-to-end/E2E</em>), samaran (<em>mocks</em>)
+, uji mendayagunakan (<em>test harness</em>).</li>
+<li>Aplikasi bibit dengan tata-letak direktori dan uji skrip sebagai titik awal.</li>
+</ul>
+<h3 id="what-is-angular_angular-sweet-spot"><em>"Posisi Enak"</em> Angular (<em>Angular Sweet Spot</em>)</h3>
+<p>Angular menyederhanakan pengembangan aplikasi dengan memberikan abstraksi tingkat tinggi ke pengembang.
+Dan sama halnya dengan abstraksi apapun, Angular (juga) tidak lepas dari biaya fleksibilitas. Dengan kata lain 
+tidak semua aplikasi cocok untuk Angular. Angular dirancang sebagai aplikasi <em>CRUD</em> sejak awal. 
+Untungnya aplikasi <em>CRUD</em> mewakili mayoritas aplikasi-jaringan. 
+Dengan memahami apa yang Angular mampu lakukan, bagaimanapun, hal itu membantu memahami kapan sebuah aplikasi 
+tidak cocok untuk Angular.</p>
+<p>Permainan dan Antarmuka Pengguna Grafis (<em>GUI</em> ) adalah contoh-contoh aplikasi dengan rekayasa MOD yang pelik (<em>tricky</em>) dan intensif.
+Jenis aplikasi seperti ini memang berbeda dari aplikasi <em>CRUD</em>, dan akhirnya pasti tidak sesuai dengan Angular.
+Dalam kasus seperti ini lebih baik menggunakan pustaka dengan abstraksi tingkat rendah, semacam <code>jQuery</code>.</p>
+<h2 id="the-zen-of-angular">Angular Zen</h2>
+<p>Angular dibangun dengan keyakinan bahwa sandi deklaratif lebih baik daripada imperatif ketika 
+berurusan dengan pengembangan AntarMuka (<em>UI</em>) dan penghubungan komponen peranti lunak bersama,
+sedangkan, sandi imperatif sangat bagus untuk pengekspresian logika usaha.</p>
+<ul>
+<li>Adalah sangat baik lakukan pengawagandengan (<em>decoupling</em>) rekayasa MOD dari logika aplikasi. 
+Ini memperbaiki testabilitas sandi secara drastis.</li>
+<li>Adalah sungguh, <em>sungguh</em> ide bagus menganggap pengujian aplikasi sama penting dengan penulisan aplikasi.
+Kesulitan pengujian dipengaruhi secara drastis oleh bagaimana sandi terstruktur.</li>
+<li>Adalah ide brilian untuk mengawagandengkan sisi-klien aplikasi dengan sisi-server.
+Ini mengizinkan upaya pengembangan melaju secara paralel, dan membolehkan kedua sisi untuk pakai-ulang.</li>
+<li>Adalah sangat membantu, <em>sungguhan</em> , jika desain kerja (dapat) membimbing para pengembang melalui seluruh 
+perjalanan membangun sebuah aplikasi, mulai pendesainan antarmuka, kemudian penulisan logika-usaha, sampai pengujian.</li>
+<li>Adalah senantiasa baik membuat tugas umum menjadi sepele dan tugas yang sulit dapat terwujud.</li>
+</ul>
+<p>Angular membebaskan anda dari ketidaknyamanan berikut:</p>
+<ul>
+<li><strong>Pendaftaran balik-panggil (<em>callbacks</em>):</strong>
+Pendaftaran balik-panggil memberantakkan sandi anda, membuatnya sulit <em>melihat hutan dari banyak pohonan</em>.
+Membuang sandi baku-templat (<em>boilerplate</em>) umum seperti balik-panggil adalah hal bagus.
+Angular mengurangi secara besar-besaran jumlah penyandian Javaskrip yang seharusnya <em>anda</em> lakukan, 
+dan membuatnya lebih mudah untuk melihat apa yang aplikasi kerjakan.</li>
+<li><strong>Perekayasaan MOD HTML secara pemrograman:</strong> Perekayasaan MOD HTML adalah <em>penyusun utama</em> 
+dari aplikasi AJAX, namun tidak praktis dan gampang-salah (<em>error-prone</em>). Dengan menggambarkan secara deklaratif bagaimana 
+antarmuka seharusnya berubah saat situasi aplikasi berubah, anda dibebaskan dari tugas rekayasa MOD tingkat rendah. 
+Kebanyakan aplikasi yang tertulis dengan Angular tidak pernah harus merekayasa MOD secara pemrograman, 
+walaupun anda bisa jika ingin.</li>
+<li><strong>Perakitan data dari dan untuk antarmuka:</strong> Operasi <em>CRUD</em> memoles mayoritas tugas aplikasi <em>AJAX</em>.
+Aliran perakitan data dari server sampai objek internal, lalu isian HTML, mengizinkan pengguna mengubah isian, pengesahan isian, 
+penampilan galat ke-sah-an, pengembalian ke model internal, kemudian balik ke server, membuat banyak sekali sandi baku-templat.
+Angular menghilangkan hampir seluruh hal ini, hanya tinggal sandi yang menggambarkan aliran keseluruhan aplikasi 
+alih-alih semua detil penerapan.</li>
+<li><strong>Penulisan <em>ton-an</em> sandi <em>inisialisasi</em> hanya untuk mulai:</strong> Anda, tipikalnya, perlu menulis banyak sekali 
+<em>perpipaan</em> hanya untuk membuat aplikasi AJAX dasar &quot;Halo Dunia&quot; bekerja. Dengan Angular anda dapat mem-butstrap-kan
+aplikasi anda dengan mudah menggunakan layanan, dimana otomatis terinjeksi ke dalam aplikasi seperti gaya injeksi dependensi 
+<a href="http://code.google.com/p/google-guice/">Guice</a>. Ini membuat anda mulai mengembangkan fitur dengan lebih cepat. 
+Sebagai bonus, anda mendapat kendali penuh atas proses <em>inisialisasi</em> dalam uji pengotomatisan.
+</li>
+</ul>
+</div></div>
