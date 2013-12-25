@@ -1,0 +1,107 @@
+<a href="http://github.com/angular/angular.js/edit/master/docs/content/guide/bootstrap.ngdoc" class="improve-docs btn btn-primary"><i class="icon-edit"> </i> Jadikan dokumen ini lebih baik</a><h1><code ng:non-bindable=""></code>
+<div><span class="hint"></span>
+</div>
+</h1>
+<div><div class="developer-guide-page developer-guide-bootstrap-page"><h2 id="overview">Ikhtisar</h2>
+<p>Laman ini menjelaskan proses inisialisasi Angular dan bagaimana anda dapat menghidupkan Angular secara manual jika perlu.</p>
+<h3 id="overview_angular-tag">Markah <code>&lt;script&gt;</code> Angular</h3>
+<p>Contoh ini memperlihatkan cara yang dianjurkan untuk pengintegrasian Angular dengan apa yang kita sebut inisialisasi otomatis.</p>
+<pre class="prettyprint linenums">
+&lt;!doctype html&gt;
+&lt;html xmlns:ng="http://angularjs.org" ng-app&gt;
+  &lt;body&gt;
+    ...
+    &lt;script src="angular.js"&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<ul>
+<li>Tempatkan markah <code>skrip</code> pada bagian paling bawah dari laman. Penempatan markah skrip pada akhir laman 
+memperbaiki waktu pasang aplikasi karena pemasangan HTML tidak ditahan oleh pemasangan skrip <code>angular.js</code>.
+Anda dapat lihat bit terbaru dari <a href="http://code.angularjs.org">http://code.angularjs.org</a>. Harap jangan menautkan 
+sandi produksi anda pada URL ini, karena akan mengekspos lubang keamanan pada situs anda. Untuk pengembangan eksperimental, 
+pertautan ke situs kami tidak apa-apa.<ul>
+<li>Pilih: <code>angular-[version].js</code> untuk fail yang terbaca-manusia, sesuai untuk pengembangan dan pengawakutuan.</li>
+<li>Pilih: <code>angular-[version].min.js</code> untuk fail yang dipadatkan dan dikaburkan, sesuai untuk penggunaan dalam produksi.</li>
+</ul>
+</li>
+<li><p>
+Tempatkan <code>ng-app</code> pada awal aplikasi anda, biasanya pada markah <code>&lt;html&gt;</code> jika anda ingin angular untuk 
+oto-butstrap aplikasi anda.</p>
+<pre><code>&lt;html ng-app&gt;</code></pre>
+</li>
+<li><p>Jika dukungan IE7 dibutuhkan, tambahkan sandi <code>id=&quot;ng-app&quot;</code></p>
+<pre><code>&lt;html ng-app id=&quot;ng-app&quot;&gt;</code></pre>
+</li>
+<li><p>Jika anda memilih menggunakan sintaksis direktif cara lama <code>ng:</code>, maka sertakan ranah-nama (<em>namespace</em>) 
+dalam <code>html</code> untuk membuat IE jalan. (Ini terdapat di sini untuk alasan historis, dan kami tidak lagi 
+menganjurkan penggunaan <code>ng:</code>.)</p>
+<pre><code>&lt;html xmlns:ng=&quot;http://angularjs.org&quot;&gt;</code></pre>
+</li>
+</ul>
+<h3 id="overview_automatic-initialization">Inisialisasi Otomatis</h3>
+<p><img class="pull-right" style="padding-left: 3em;" src="img/guide/concepts-startup.png"></p>
+<p>Angular menghidupkan secara otomatis saat acara <code>DOMContentLoaded</code> atau ketika skrip <code>angular.js</code> 
+dievaluasi jika pada saat itu <code>document.readyState</code> di-set menjadi <code>&#39;selesai&#39;</code>. Pada titik ini 
+Angular mencari direktif <a href="api/ng.directive:ngApp"><code>ng-app</code></a> dimana terletak pada awal aplikasi.
+Jika direktif <a href="api/ng.directive:ngApp"><code>ng-app</code></a> ditemukan kemudian Angular akan:</p>
+<ul>
+<li>memuat <a href="guide/module">modul</a> yang terasosiasi dengan direktif</li>
+<li>membuat <a href="api/AUTO.$injector"><code>injektor</code></a> aplikasi</li>
+<li>mengompilasikan MOD dan memperlakukan direktif <a href="api/ng.directive:ngApp"><code>ng-app</code></a> sebagai kompilasi awal.
+Ini membuat anda dapat menyuruhnya untuk menganggap hanya satu bagian MOD saja sebagai aplikasi Angular</li>
+</ul>
+<pre class="prettyprint linenums">
+&lt;!doctype html&gt;
+&lt;html ng-app="namaModulOpsional"&gt;
+  &lt;body&gt;
+    Saya dapat menambah: {{ 1+2 }}.
+    &lt;script src="angular.js"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<h3 id="overview_manual-initialization">Inisialisasi Manual</h3>
+<p>Jika anda butuh kendali lebih atas proses inisialisasi, anda bahkan dapat menggunakan pembutstrapan manual.
+Keadaan dimana anda butuh melakukan ini termasuk, menggunakan pemuat skrip atau kebutuhan 
+untuk melakukan satu operasi sebelum Angular mengompilasi sebuah laman.</p>
+<p>Berikut adalah contoh penginisialisasian Angular secara manual:</p>
+<pre class="prettyprint linenums">
+&lt;!doctype html&gt;
+&lt;html xmlns:ng="http://angularjs.org"&gt;
+  &lt;body&gt;
+    Halo {{'Dunia'}}!
+    &lt;script src="http://code.angularjs.org/angular.js"&gt;&lt;/script&gt;
+    &lt;script&gt;
+       angular.element(document).ready(function() {
+         angular.module('aplikasiKu', []);
+         angular.bootstrap(document, ['aplikasiKu']);
+       });
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>Harap catat jika kami telah menyediakan nama dari modul aplikasi kita untuk dipasang ke dalam injektor sebagai 
+parameter kedua dari fungsi <a href="api/angular.bootstrap"><code>api/angular.bootstrap</code></a>.
+Harap perhatikan kalau <code>angular.bootstrap</code> tidak akan membuat modul saat pemrosesan. Anda harus 
+membuat modul sukaan apapun sebelum anda memberikannya sebagai parameter.</p>
+<p>Ini adalah urutan yang anda harus ikuti:</p>
+<ol>
+<li><p>Setelah laman dan semua sandi dimuat, temukan pangkal elemen dari aplikasi AngularJs anda, dimana 
+biasanya pada pangkal dokumen.</p>
+</li>
+<li><p>Panggil <a href="api/angular.bootstrap"><code>api/angular.bootstrap</code></a> untuk <a href="guide/compiler">mengompilasi</a>
+elemen ke dalam bentuk dapat-dijalankan, yaitu aplikasi-terikat-dua-arah.</p>
+</li>
+</li>
+</ol>
+<h3 id="overview_deferred-bootstrap">Butstrap Tangguhan (<em>Deferred Bootstrap</em>)</h3>
+<p>Fitur ini mendayagunakan perkakas seperti Batarang dan pelari-uji untuk menyangkutkan ke dalam proses butstrap angular 
+dan memasukkan diam-diam lebih banyak modul ke dalam daftar Injeksi Dependensi, dimana dapat mengganti atau memperbesar layanan 
+Injeksi Dependensi dengan tujuan instrumentasi atau penyamaran dependensi yang sulit.</p>
+<p>Jika <code>window.name</code> berisi awalan <code>NG_DEFER_BOOTSTRAP!</code>, saat 
+<a href="api/angular.bootstrap"><code>api/angular.bootstrap</code></a> dipanggil, maka proses butstrap akan terhenti sebentar 
+sampai sandi <code>angular.resumeBootstrap()</code> dipanggil. 
+</p>
+<p>Sandi <code>angular.resumeBootstrap()</code> menerima opsional, larik modul-modul dimana seharusnya ditambahkan ke daftar modul aslinya
+yaitu aplikasi yang seharusnya dibutstrapkan.</p>
+</div></div>
